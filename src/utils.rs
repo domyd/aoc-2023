@@ -383,7 +383,7 @@ pub mod grid {
             let max_y = keys.iter().max_by_key(|f| f.y).map(|f| f.y).unwrap() + 1;
             let max_x = keys.iter().max_by_key(|f| f.x).map(|f| f.x).unwrap() + 1;
             let longest_v = map.values().map(|v| v.to_string().len()).max().unwrap();
-            let empty = core::iter::repeat(' ').take(longest_v).collect::<String>();
+            let empty = core::iter::repeat('.').take(longest_v).collect::<String>();
 
             for y in min_y..max_y {
                 let mut out = String::new();
