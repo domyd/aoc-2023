@@ -288,6 +288,19 @@ pub mod grid {
             };
             Point2 { x, y }
         }
+
+        pub fn opposite(&self) -> Direction {
+            match self {
+                Direction::North => Self::South,
+                Direction::NorthEast => Self::SouthWest,
+                Direction::East => Self::West,
+                Direction::SouthEast => Self::NorthWest,
+                Direction::South => Self::North,
+                Direction::SouthWest => Self::NorthEast,
+                Direction::West => Self::East,
+                Direction::NorthWest => Self::NorthEast,
+            }
+        }
     }
 
     impl<V: Clone> Grid<V> {
