@@ -7,6 +7,7 @@ pub mod grid {
     };
 
     use itertools::Itertools;
+    use pathfinding::matrix::Matrix;
 
     #[derive(Clone, Debug)]
     pub struct Grid<V> {
@@ -76,6 +77,17 @@ pub mod grid {
 
         fn mul(self, rhs: i32) -> Self::Output {
             self * (rhs as isize)
+        }
+    }
+
+    impl<'a> Mul<&'a Matrix<isize>> for Point2 {
+        type Output = Point2;
+
+        fn mul(self, rhs: &'_ Matrix<isize>) -> Self::Output {
+            Point2 {
+                x: self.x * rhs.get((0, 0)).unwrap() + self.y * rhs.get((1, 0)).unwrap(),
+                y: self.x * rhs.get((0, 1)).unwrap() + self.y * rhs.get((1, 1)).unwrap(),
+            }
         }
     }
 
@@ -231,7 +243,7 @@ pub mod grid {
         }
     }
 
-    #[derive(Clone, Copy, Debug)]
+    #[derive(Clone, Copy, Debug, PartialEq, Eq)]
     pub enum Direction {
         North,
         NorthEast,
@@ -287,6 +299,20 @@ pub mod grid {
                 Direction::NorthWest => (-1, -1),
             };
             Point2 { x, y }
+        }
+
+        pub fn of(v: Point2) -> Direction {
+            match (v.x.signum(), v.y.signum()) {
+                (-1, -1) => Direction::NorthWest,
+                (-1, 0) => Direction::West,
+                (-1, 1) => Direction::SouthWest,
+                (0, -1) => Direction::North,
+                (0, 1) => Direction::South,
+                (1, -1) => Direction::NorthEast,
+                (1, 0) => Direction::East,
+                (1, 1) => Direction::SouthEast,
+                _ => panic!("has no direction"),
+            }
         }
 
         pub fn opposite(&self) -> Direction {
