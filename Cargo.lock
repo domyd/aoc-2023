@@ -34,6 +34,7 @@ name = "aoc-2023"
 version = "0.1.0"
 dependencies = [
  "chumsky",
+ "indexmap",
  "itertools",
  "pathfinding",
  "scan_fmt",
