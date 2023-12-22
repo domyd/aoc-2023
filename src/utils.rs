@@ -226,6 +226,13 @@ pub mod grid {
             }
         }
 
+        pub fn translate(&self, vec: &Point3) -> Self {
+            Self {
+                lowest: self.lowest + *vec,
+                highest: self.highest + *vec,
+            }
+        }
+
         pub fn contains(&self, point: &Point3) -> bool {
             point.x >= self.lowest.x
                 && point.x <= self.highest.x
