@@ -110,6 +110,13 @@ pub mod grid {
         }
     }
 
+    #[derive(Clone, Copy, PartialEq, PartialOrd, Debug)]
+    pub struct Point3f {
+        pub x: f64,
+        pub y: f64,
+        pub z: f64,
+    }
+
     #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
     pub struct BoundingBox2 {
         pub lowest: Point2,
